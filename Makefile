@@ -1,1 +1,4 @@
-# note: call scripts from /scripts
+.PHONY: build
+
+build:
+	go build -o build/zk-example cmd/zk-example/main.go

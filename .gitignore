@@ -21,3 +21,14 @@
 # vendor/
 
 .idea
+build/
+node_modules/
+typechain-types/
+deployments/
+artifacts/
+cache/
+zk-example.pk
+zk-example.vk
+proof
+witness.json
+.env
