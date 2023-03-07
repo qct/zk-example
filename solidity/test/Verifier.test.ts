@@ -3,6 +3,7 @@ import { deployments, ethers, getUnnamedAccounts } from "hardhat";
 import { Verifier } from "../typechain-types";
 import { expect } from "./chai-setup";
 import { setupUsers } from "./utils";
+import witness from "../witness.json";
 
 const setup = deployments.createFixture(async () => {
     await deployments.fixture("Verifier");
@@ -28,7 +29,7 @@ describe("Verifier contract", function () {
         const b11 = proofBytes.slice(fpSize * 5, fpSize * 6);
         const c0 = proofBytes.slice(fpSize * 6, fpSize * 7);
         const c1 = proofBytes.slice(fpSize * 7, fpSize * 8);
-        const input = 4;
+        const input = witness.Y
         console.log("input: ", [input]);
 
         const { users, Verifier } = await setup();

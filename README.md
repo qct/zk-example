@@ -45,3 +45,8 @@ this contract contains `VK`.
 	
 	  2 passing (2s)
 	```
+You can use other `x,y` to test this micro zk system, like `(2,30)`, `(3,120)` by running:
+```
+build/zk-example -x 2 -y 30
+cd solidity && npx hardhat test
+```

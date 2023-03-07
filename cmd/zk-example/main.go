@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"github.com/consensys/gnark-crypto/ecc"
 	"github.com/consensys/gnark/backend/groth16"
@@ -17,6 +18,8 @@ var (
 	contractPath = "solidity/contracts/zk-example.sol"
 	witnessPath  = "solidity/witness.json"
 	proofPath    = "solidity/proof"
+
+	x, y int64
 )
 
 type MyCircuit struct {
@@ -35,6 +38,10 @@ func (c *MyCircuit) Define(api frontend.API) error {
 }
 
 func main() {
+	flag.Int64Var(&x, "x", 1, "x")
+	flag.Int64Var(&y, "y", 4, "y")
+	flag.Parse()
+
 	// compiles our circuit into a R1CS
 	var circuit MyCircuit
 	r1cs, err := frontend.Compile(ecc.BN254.ScalarField(), r1cs.NewBuilder, &circuit)
@@ -45,7 +52,8 @@ func main() {
 	pk, vk, err := generatePkVkIfNotExist(err, r1cs)
 
 	// create a valid proof
-	assignment := MyCircuit{X: 1, Y: 4}
+	fmt.Println("Generating proof using x:", x, ", y:", y)
+	assignment := MyCircuit{X: x, Y: y}
 	// witness creation
 	witness, _ := frontend.NewWitness(&assignment, ecc.BN254.ScalarField())
 
